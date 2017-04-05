@@ -1,0 +1,41 @@
+#!/bin/bash
+
+TOOLC_HOME=~/.toolc
+ARCH=$(uname -m)
+OS=$(uname)
+
+directory=$(echo "$OS-$ARCH" | tr '[:upper:]' '[:lower:]')
+
+which git 1>/dev/null
+if [ -z "$?" ]; then
+    echo "you must install git at first."
+    exit 1
+fi
+
+if [ -z "$1" ]; then
+    echo "$0 [ install | uninstall ]"
+    exit 1
+fi
+
+case "$1" in
+    "install")
+        if [ ! -d "$TOOLC_HOME" ]; then
+            mkdir -p $TOOLC_HOME
+            git clone https://github.com/ISSKJ/toolc-dist.git  $TOOLC_HOME/toolc-dist -n --depth 1
+        fi
+        PWD=$(pwd)
+        cd $TOOLC_HOME/toolc-dist
+        git checkout HEAD packages.list
+        git checkout HEAD $directory
+        cd $PWD
+        echo "toolc installed. Please add the line to PATH"
+        echo "$TOOLC_HOME/toolc-dist/$directory"
+        ;;
+    "uninstall")
+        rm -rf $TOOLC_HOME;
+        rm -rf toolc-dist;
+        echo "toolc uninstalled."
+        ;;
+    *)
+        ;;
+esac
