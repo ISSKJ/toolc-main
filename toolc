@@ -12,29 +12,50 @@ if [ -z "$?" ]; then
     exit 1
 fi
 
-if [ -z "$1" ]; then
-    echo "$0 [ install | uninstall ]"
-    exit 1
-fi
+function _do_install()
+{
+    if [ ! -d "$TOOLC_HOME" ]; then
+        mkdir -p $TOOLC_HOME
+        git clone https://github.com/ISSKJ/toolc-dist.git  $TOOLC_HOME/toolc-dist -n --depth 1
+    fi
+    PWD=$(pwd)
+    cd $TOOLC_HOME/toolc-dist
+    git checkout HEAD $directory
+    cd $PWD
+    echo "toolc installed. Please add the line to PATH"
+    echo "export PATH=\$PATH:$TOOLC_HOME/toolc-dist/$directory"
+}
+
+function _do_uninstall()
+{
+    rm -rf $TOOLC_HOME;
+    rm -rf toolc-dist;
+    echo "toolc uninstalled."
+}
+
+function _do_reinstall()
+{
+    _do_uninstall
+    _do_install
+}
+
+function _do_usage()
+{
+    echo "$0 [ install | uninstall | reinstall ]"
+}
+
 
 case "$1" in
     "install")
-        if [ ! -d "$TOOLC_HOME" ]; then
-            mkdir -p $TOOLC_HOME
-            git clone https://github.com/ISSKJ/toolc-dist.git  $TOOLC_HOME/toolc-dist -n --depth 1
-        fi
-        PWD=$(pwd)
-        cd $TOOLC_HOME/toolc-dist
-        git checkout HEAD $directory
-        cd $PWD
-        echo "toolc installed. Please add the line to PATH"
-        echo "export PATH=\$PATH:$TOOLC_HOME/toolc-dist/$directory"
+        _do_install
         ;;
     "uninstall")
-        rm -rf $TOOLC_HOME;
-        rm -rf toolc-dist;
-        echo "toolc uninstalled."
+        _do_uninstall
+        ;;
+    "reinstall")
+        _do_reinstall
         ;;
     *)
+        _do_usage
         ;;
 esac
