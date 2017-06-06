@@ -25,12 +25,10 @@ case "$1" in
         fi
         PWD=$(pwd)
         cd $TOOLC_HOME/toolc-dist
-        git checkout HEAD packages.list
         git checkout HEAD $directory
-        git checkout HEAD ext/$directory
         cd $PWD
         echo "toolc installed. Please add the line to PATH"
-        echo "export PATH=\$PATH:$TOOLC_HOME/toolc-dist/$directory:$TOOLC_HOME/toolc-dist/ext/$directory/bin"
+        echo "export PATH=\$PATH:$TOOLC_HOME/toolc-dist/$directory"
         ;;
     "uninstall")
         rm -rf $TOOLC_HOME;
