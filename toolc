@@ -33,6 +33,15 @@ function _do_uninstall()
     echo "toolc uninstalled."
 }
 
+function _do_update()
+{
+    PWD=$(pwd)
+    cd $TOOLC_HOME/toolc-dist
+    git pull
+    cd $PWD
+    echo "toolc updated."
+}
+
 function _do_reinstall()
 {
     _do_uninstall
@@ -41,7 +50,7 @@ function _do_reinstall()
 
 function _do_usage()
 {
-    echo "$0 [ install | uninstall | reinstall ]"
+    echo "$0 [ install | uninstall | reinstall | update ]"
 }
 
 
@@ -54,6 +63,9 @@ case "$1" in
         ;;
     "reinstall")
         _do_reinstall
+        ;;
+    "update")
+        _do_update
         ;;
     *)
         _do_usage
