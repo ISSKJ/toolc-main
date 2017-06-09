@@ -4,7 +4,7 @@
 1. Linux-86_64
 2. Darwin-x86_64  
 
-If you are different OS, please build and push the `toolc-dist` repository. 
+If you are different OS, please build and push the [toolc-dist](https://github.com/ISSKJ/toolc-dist) repository. 
 
 
 ## How to install
@@ -20,4 +20,4 @@ $ git clone https://github.com/ISSKJ/toolc-dist
 $ cd toolc-dist
 $ ./build.sh build
 ```
-And push the `toolc-dist` repository. 
+And push the [toolc-dist](https://github.com/ISSKJ/toolc-dist) repository. 
