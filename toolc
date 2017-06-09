@@ -16,11 +16,10 @@ function _do_install()
 {
     if [ ! -d "$TOOLC_HOME" ]; then
         mkdir -p $TOOLC_HOME
-        git clone https://github.com/ISSKJ/toolc-dist.git  $TOOLC_HOME/toolc-dist -n --depth 1
+        git clone https://github.com/ISSKJ/toolc-dist.git  $TOOLC_HOME/toolc-dist
     fi
     PWD=$(pwd)
     cd $TOOLC_HOME/toolc-dist
-    git checkout HEAD $directory
     cd $PWD
     echo "toolc installed. Please add the line to PATH"
     echo "export PATH=\$PATH:$TOOLC_HOME/toolc-dist/$directory"
@@ -29,7 +28,6 @@ function _do_install()
 function _do_uninstall()
 {
     rm -rf $TOOLC_HOME;
-    rm -rf toolc-dist;
     echo "toolc uninstalled."
 }
 
