@@ -7,7 +7,7 @@ OS=$(uname)
 directory=$(echo "$OS-$ARCH" | tr '[:upper:]' '[:lower:]')
 
 which git 1>/dev/null
-if [ -z "$?" ]; then
+if [ "$?" != 0 ]; then
     echo "you must install git at first."
     exit 1
 fi
